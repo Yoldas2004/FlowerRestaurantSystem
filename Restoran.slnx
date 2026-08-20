@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Restoran.Api/Restoran.Api.csproj" />
+  <Project Path="Restoran.Business/Restoran.Business.csproj" />
+  <Project Path="Restoran.Data/Restoran.Data.csproj" />
+</Solution>
