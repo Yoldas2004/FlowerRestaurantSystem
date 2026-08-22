@@ -1,5 +1,10 @@
+using Microsoft.EntityFrameworkCore;
+using Restoran.Data;
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddDbContext<RestoranDbContext>(options => options.UseMySql
+(builder.Configuration.GetConnectionString("DefaultConnection"),
+ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
+    ));
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();

@@ -10,5 +10,6 @@ namespace Restoran.Data.Entities
         public int Id { get; set; }
         public int TableNumber { get; set; }
         public TableStatusType TableStatus { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }

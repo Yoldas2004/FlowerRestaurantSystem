@@ -13,7 +13,7 @@ namespace Restoran.Data.Entities
         public string UserName { get; set; } = string.Empty;
         public string PasswordHash { get; set; } = string.Empty;
         public RoleType Role { get; set; }
-        
-               
+        public bool IsActive { get; set; } = true;
+
     }
 }
