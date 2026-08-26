@@ -7,7 +7,7 @@ namespace Restoran.Data.Repository
 {
     public class GenericRepository<T>:IGenericRepository<T> where T : class
     {
-        private readonly RestoranDbContext _context;
+        protected readonly RestoranDbContext _context;
         public GenericRepository(RestoranDbContext context)
         {
             _context = context;
