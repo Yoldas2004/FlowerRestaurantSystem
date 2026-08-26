@@ -48,18 +48,20 @@ namespace Restoran.Business.Services
             var product = await _genericProductRepository.GetByIdAsync(productId);
             if (product == null)
             {
-                throw new ArgumentException("Siparis Bulunamadi");
+                throw new ArgumentException("Urun  Bulunamadi");
             }
-            OrderItem orderItem = new OrderItem 
+            OrderItem orderItem = new OrderItem
             {
                 OrderId = orderId,
                 ProductId = productId,
                 Quantity = quantity,
                 Note = note,
-                UnitPrice  =  
-                
-            };
+                UnitPrice = product.Price
 
+            };
+            order.OrderItems .Add(orderItem);
+            await _orderRepository.SaveChangesAsync();
+            return order;
 
         }
     }
