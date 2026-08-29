@@ -7,8 +7,8 @@ namespace Restoran.Business.Services
 {
     public class UserService:   IUserService
     {
-        private readonly IUserRepository _userRepository;
-        public UserService(IUserRepository userRepository)
+        private readonly Data.Repository.IUserService _userRepository;
+        public UserService(Data.Repository.IUserService userRepository)
         {
              _userRepository = userRepository;
         }

@@ -7,7 +7,7 @@ using System.Text;
 namespace Restoran.Data.Repository
 
 {
-    public interface IUserRepository:IGenericRepository<User> 
+    public interface IUserService:IGenericRepository<User> 
     {
         Task<User?> GetByUserNameAsync(string username);
     }
