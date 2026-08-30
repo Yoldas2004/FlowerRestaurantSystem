@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Restoran.Data.Repository
 {
-    public class UserRepository:GenericRepository<User>, IUserService
+    public class UserRepository:GenericRepository<User>, IUserRepository
     {
          
 

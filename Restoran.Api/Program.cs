@@ -13,7 +13,7 @@ ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConne
 builder.Services.AddOpenApi();
 
 builder.Services.AddScoped<IGenericRepository<Product>, GenericRepository<Product>>();
-builder.Services.AddScoped<Restoran.Data.Repository.IUserService, UserRepository>();
+builder.Services.AddScoped<Restoran.Data.Repository.IUserRepository, UserRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<Restoran.Business.Services.IUserService, UserService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
