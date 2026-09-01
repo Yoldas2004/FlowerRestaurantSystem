@@ -40,10 +40,35 @@
                     return BadRequest(ex.Message);
                 }
 
-
-
-
-
             }
+        [HttpPost("addorderitem")]
+        public async Task<IActionResult> AddOrderItem([FromBody] AddOrderItemRequestDto dto)
+        {
+            try 
+            
+            {
+                var order = await _orderService.AddOrderItemAsync(dto.OrderId, dto.ProductId,dto.Quantity,dto.Note);
+                var waiter = await _userRepository.GetByIdAsync(order.WaiterId);
+                var response = new OrderResponseDto
+                {
+                    Id = order.Id,
+                    TableId = order.TableId,
+                    WaiterName = waiter?.UserName ?? "Bilinmiyor",
+                    OrderItems =  order.OrderItems.Select(x=>  new OrderItemResponseDto {
+                      ProductName = x.Product.Name,
+                      Quantity = x.Quantity,
+                      UnitPrice = x.UnitPrice,
+                    }).ToList(),
+                    StatusInformation = order.PaymentStatus.ToString(),
+                    
+                };
+                return Ok(response);
+            }
+            catch(ArgumentException ex) 
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         }
     }
