@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Restoran.Business.Services;
 using Restoran.Data;
 using Restoran.Data.Entities;
@@ -18,6 +19,7 @@ builder.Services.AddScoped<Restoran.Data.Repository.IUserRepository, UserReposit
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<Restoran.Business.Services.IUserService, UserService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IGenericRepository<Table>,GenericRepository<Table> >();
 builder.Services.AddControllers();
 
 var app = builder.Build();
