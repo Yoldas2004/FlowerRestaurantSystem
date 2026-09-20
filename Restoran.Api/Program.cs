@@ -20,6 +20,7 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<Restoran.Business.Services.IUserService, UserService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IGenericRepository<Table>,GenericRepository<Table> >();
+ 
 builder.Services.AddControllers();
 
 var app = builder.Build();

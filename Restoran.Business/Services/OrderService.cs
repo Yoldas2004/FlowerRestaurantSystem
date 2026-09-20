@@ -40,7 +40,7 @@ namespace Restoran.Business.Services
         }
         public async Task<Order> AddOrderItemAsync(int orderId, int productId, int quantity, string? note)
         {
-          var order =  await _orderRepository.GetByIdAsync(orderId);
+          var order =  await _orderRepository.GetByIdWithDetailsAsync(orderId);
             if (order == null) 
             {
                 throw new ArgumentException("Siparis Bulunamadi");
@@ -63,6 +63,24 @@ namespace Restoran.Business.Services
             await _orderRepository.SaveChangesAsync();
             return order;
 
+        }
+        public async Task<Order> PayOrderAsync(int orderId, PaymentMethod method)
+        {
+            var order = await _orderRepository.GetByIdWithDetailsAsync(orderId);
+            if (order == null)
+            {
+                throw new ArgumentException("Siparis bulunamadi");
+            }
+            if (order.PaymentStatus == PaymentStatus.Paid)
+            {
+                throw new ArgumentException ($"Odeme yapilmis");
+            }
+            order.PaymentStatus = PaymentStatus.Paid;
+            order.PaymentMethod =method;
+            order.PaidAt = DateTime.UtcNow;
+             
+            await _orderRepository.SaveChangesAsync();
+            return order;
         }
     }
 }

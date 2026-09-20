@@ -8,5 +8,6 @@ namespace Restoran.Data.Repository
     public interface IOrderRepository:IGenericRepository<Order>
     {
         Task<Order?> GetOpenOrderByTableIdAsync(int id);
+        Task<Order?> GetByIdWithDetailsAsync(int id);
     }
 }

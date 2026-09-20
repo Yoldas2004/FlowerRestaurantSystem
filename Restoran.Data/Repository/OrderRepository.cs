@@ -18,6 +18,13 @@ namespace Restoran.Data.Repository
             var result = await _context.Orders.FirstOrDefaultAsync(o => o.TableId == id && o.PaymentStatus == PaymentStatus.Unpaid );
             return result;
         }
+        public async Task<Order?> GetByIdWithDetailsAsync(int id)
+        {
+            var result = await _context.Orders.Include(o => o.OrderItems).
+                ThenInclude(oi => oi.Product).
+                FirstOrDefaultAsync(oid => oid.Id == id);
+            return result;
+        }
 
     }
 }
