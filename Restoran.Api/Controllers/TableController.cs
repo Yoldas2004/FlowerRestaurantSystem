@@ -40,5 +40,27 @@ namespace Restoran.Api.Controllers
 
             return Ok(response);
         }
+        [HttpPut("updatestatus")]
+        public async Task<IActionResult> UpdateStatus([FromBody] UpdateTableStatusRequestDto dto)
+        {
+            var find = await _iRepository.GetByIdAsync(dto.TableId);
+            if (find == null)
+            {
+                return BadRequest("Masa Bulunamadi");
+            }
+            find.TableStatus = dto.TableStatus;
+            var response = new TableResponseDto 
+            {
+                Id =find.Id,
+                TableNumber=find.TableNumber,
+                IsActive=find.IsActive,
+                TableStatus=dto.TableStatus.ToString()
+            };
+            await _iRepository.SaveChangesAsync();
+            return Ok(response);
+            
+        }
+
+    
     }
 }
