@@ -26,5 +26,13 @@ namespace Restoran.Data.Repository
             return result;
         }
 
+        public async Task<IEnumerable<Order>> GetAllUnPaidsAsync()
+        {
+            var result = await _context.Orders.Include(x => x.OrderItems).
+                ThenInclude(oi => oi.Product).
+                Where(o=> o.PaymentStatus == PaymentStatus.Unpaid).ToListAsync();
+            return result;
+        }
+
     }
 }

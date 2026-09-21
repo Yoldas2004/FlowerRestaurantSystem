@@ -9,5 +9,6 @@ namespace Restoran.Data.Repository
     {
         Task<Order?> GetOpenOrderByTableIdAsync(int id);
         Task<Order?> GetByIdWithDetailsAsync(int id);
+        Task<IEnumerable<Order>> GetAllUnPaidsAsync();
     }
 }

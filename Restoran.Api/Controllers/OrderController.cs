@@ -1,11 +1,12 @@
-﻿    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
-    using Restoran.Api.DTOs;
-    using Restoran.Business.Services;
-    using Restoran.Data.Repository;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Restoran.Api.DTOs;
+using Restoran.Business.Services;
+using Restoran.Data.Entities;
+using Restoran.Data.Repository;
 
-    namespace Restoran.Api.Controllers
-    {
+namespace Restoran.Api.Controllers
+{
     [ApiController]
     [Route("api/[controller]")]
     public class OrderController : ControllerBase
@@ -54,7 +55,8 @@
                     Id = order.Id,
                     TableId = order.TableId,
                     WaiterName = waiter?.UserName ?? "Bilinmiyor",
-                    OrderItems = order.OrderItems.Select(x => new OrderItemResponseDto {
+                    OrderItems = order.OrderItems.Select(x => new OrderItemResponseDto
+                    {
                         ProductName = x.Product.Name,
                         Quantity = x.Quantity,
                         UnitPrice = x.UnitPrice,
@@ -75,7 +77,7 @@
         {
             try
             {
-                var order = await _orderService.PayOrderAsync(dto.OrderId,dto.PaymentMethod);
+                var order = await _orderService.PayOrderAsync(dto.OrderId, dto.PaymentMethod);
                 var waiter = await _userRepository.GetByIdAsync(order.WaiterId);
                 var response = new OrderResponseDto
                 {
@@ -97,6 +99,44 @@
                 return BadRequest(ex.Message);
             }
         }
+        [HttpGet("kitchenview")]
 
+        public async Task<IActionResult> KitchenViewer()
+        {
+            var entry = await _orderService.GetAllUnPaidOrdersAsync();
+            var results = new List<OrderResponseDto>();
+
+            foreach (var entries in entry)
+            {
+                var info = await _userRepository.GetByIdAsync(entries.WaiterId);
+                results.Add(new OrderResponseDto
+                {
+                    Id = entries.Id,
+                    StatusInformation = entries.PaymentStatus.ToString(),
+                    WaiterName = info?.UserName ?? "Unknown",
+                    TableId = entries.TableId,
+                    OrderItems = entries.OrderItems.Select(x => new OrderItemResponseDto
+                    {
+                        ProductName = x.Product.Name,
+                        Quantity = x.Quantity,
+                        UnitPrice = x.UnitPrice
+
+                    }).ToList()
+
+
+                }
+                );
+
+
+            }
+            return Ok(results);
         }
+
     }
+}
+
+
+
+
+
+

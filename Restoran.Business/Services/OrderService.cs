@@ -82,5 +82,9 @@ namespace Restoran.Business.Services
             await _orderRepository.SaveChangesAsync();
             return order;
         }
+        public async Task<IEnumerable<Order>> GetAllUnPaidOrdersAsync()
+        {
+            return await _orderRepository.GetAllUnPaidsAsync();
+        }
     }
 }
