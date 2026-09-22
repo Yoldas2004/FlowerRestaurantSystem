@@ -37,5 +37,26 @@
                     ).ToList();
                 return Ok(response);
             }
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateStatus([FromBody]  UpdateCategoryRequestDto dto)
+        {
+            var finder = await _categoryRepository.GetByIdAsync(dto.CategoryId);
+            
+            if (finder == null)
+            {
+                return BadRequest("Kategori Bulunamadi!!!!");
+
+            }
+            finder.CategoryName = dto.CategoryName;
+            var response = new CategoryResponseDto 
+            {
+            CategoryName = finder.CategoryName,
+            Id = finder.Id
+            };
+           await _categoryRepository.SaveChangesAsync();
+        return Ok(response);
+            
         }
+        
     }
+}

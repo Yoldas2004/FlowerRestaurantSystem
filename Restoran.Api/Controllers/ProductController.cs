@@ -59,5 +59,26 @@ namespace Restoran.Api.Controllers
             }).ToList();
             return  Ok (response);         
         }
+        [HttpPut("updateproduct")]
+        public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductRequestDto dto) 
+        {
+        var find = await _iGenericProduct.GetByIdAsync(dto.ProductId);
+            if (find == null)
+            {
+                return BadRequest("Urun bulunamadi");
+            }
+            find.Price = dto.Price;
+            find.IsAvailable = dto.IsAvailable;
+            var response = new ProductResponseDto
+            {
+               Id =find.Id,
+               CategoryId=find.CategoryId,
+               IsAvailable  =find.IsAvailable,
+               Price=dto.Price,
+               ProductName =find.Name
+            };
+            await _iGenericProduct.SaveChangesAsync();
+            return Ok (response);
+        }
     }
 }
