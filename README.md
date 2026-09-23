@@ -103,7 +103,11 @@ dotnet run
 
 ### Project Status
 
-Data, Repository, and Business layers are complete. All controllers (Auth, Order, Category, Table, Product) are built; most endpoints are verified end-to-end against a live database. JWT authentication is in progress — configuration and token generation are wired up, with token issuance on login and `[Authorize]`-based role protection as the remaining step. No frontend yet.
+### Project Status
+
+The backend is complete: all layers (Data, Repository, Business, API) are implemented, and endpoints are verified end-to-end against a live MySQL database. JWT authentication is fully wired up — tokens are issued on login and endpoints are protected with role-based `[Authorize]` attributes (Admin / Waiter / Kitchen).
+
+**Frontend note:** The backend was written by hand as the core of this portfolio project. The frontend was built with AI assistance (Claude Code) to demonstrate and exercise the API. It is not the focus of this repository.
 
 ---
 
@@ -198,4 +202,6 @@ dotnet run
 
 ### Proje Durumu
 
-Data, Repository ve Business katmanları tamamlandı. Tüm Controller'lar (Auth, Order, Category, Table, Product) kuruldu; endpoint'lerin çoğu gerçek bir veritabanına karşı uçtan uca doğrulandı. JWT kimlik doğrulaması sürüyor — konfigürasyon ve token üretimi bağlandı, login'de token verme ve `[Authorize]` bazlı rol koruması kalan adım. Henüz bir frontend yok.
+Backend tamamlandı: tüm katmanlar (Data, Repository, Business, API) hazır ve endpoint'ler gerçek bir MySQL veritabanına karşı uçtan uca doğrulandı. JWT kimlik doğrulaması tamamen bağlandı: login'de token veriliyor ve endpoint'ler rol bazlı `[Authorize]` ile korunuyor (Admin / Waiter / Kitchen).
+
+**Frontend notu:** Backend, bu portfolyo projesinin çekirdeği olarak elle yazıldı. Frontend ise API'yi göstermek ve kullanmak amacıyla AI desteğiyle (Claude Code) yapıldı. Bu reponun odak noktası değildir.
