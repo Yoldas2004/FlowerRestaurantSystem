@@ -3,10 +3,9 @@
 ![.NET](https://img.shields.io/badge/.NET-10-512BD4?style=flat-square)
 ![EF Core](https://img.shields.io/badge/EF%20Core-9.0-512BD4?style=flat-square)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=flat-square)
-![JWT](https://img.shields.io/badge/Auth-JWT-000000?style=flat-square)
 ![Docker](https://img.shields.io/badge/MySQL-Docker-2496ED?style=flat-square)
 
-An internal-facing REST API for restaurant operations — table and order management, payments, and role-based access (Admin, Waiter, Kitchen). Built as a portfolio project to demonstrate layered architecture, EF Core, and real business-rule design in ASP.NET Core.
+An internal-facing REST API for restaurant operations — table and order management, payments, and staff roles (Admin, Waiter, Kitchen). Built as a portfolio project to demonstrate layered architecture, EF Core, and real business-rule design in ASP.NET Core.
 
 **Languages:** [English](#english) · [Türkçe](#türkçe)
 
@@ -60,7 +59,6 @@ CQRS/MediatR was evaluated and deliberately dropped — for this project's scope
 - Entity Framework Core 9.0 + Pomelo.EntityFrameworkCore.MySql (pinned to 9.0 — Pomelo doesn't yet support EF Core 10)
 - MySQL 8.0, containerized via Docker
 - BCrypt.Net-Next for password hashing
-- JWT Bearer authentication
 
 ### API Endpoints
 
@@ -78,7 +76,6 @@ CQRS/MediatR was evaluated and deliberately dropped — for this project's scope
 | POST | `/api/Table/createaction` | Create a table |
 | GET | `/api/Table/gettable` | List tables |
 | PUT | `/api/Table/updatestatus` | Change a table's status (Empty/Occupied/Reserved) |
-| PUT | `/api/Table/updateactive` | Activate/deactivate a table |
 | POST | `/api/Product/createproduct` | Create a product |
 | GET | `/api/Product/getall` | List products |
 | PUT | `/api/Product/updateproduct` | Update a product's price/availability |
@@ -103,11 +100,13 @@ dotnet run
 
 ### Project Status
 
-### Project Status
+All layers (Data, Repository, Business, API) are implemented, and the endpoints above are verified end-to-end against a live MySQL database. Staff roles (Admin / Waiter / Kitchen) are modelled in the domain; endpoint-level authorization is not wired up yet.
 
-The backend is complete: all layers (Data, Repository, Business, API) are implemented, and endpoints are verified end-to-end against a live MySQL database. JWT authentication is fully wired up — tokens are issued on login and endpoints are protected with role-based `[Authorize]` attributes (Admin / Waiter / Kitchen).
+**Roadmap**
+- JWT authentication: issue tokens on login and protect endpoints with role-based `[Authorize]`
+- Activate / deactivate tables via the API
 
-**Frontend note:** The backend was written by hand as the core of this portfolio project. The frontend was built with AI assistance (Claude Code) to demonstrate and exercise the API. It is not the focus of this repository.
+**Frontend note:** The backend was written by hand as the core of this portfolio project. A frontend for demonstrating the API was built with AI assistance (Claude Code); it is not part of this repository.
 
 ---
 
@@ -159,7 +158,6 @@ CQRS/MediatR değerlendirildi, bilinçli olarak vazgeçildi — bu projenin öl�
 - Entity Framework Core 9.0 + Pomelo.EntityFrameworkCore.MySql (9.0'a sabitlendi — Pomelo henüz EF Core 10'u desteklemiyor)
 - MySQL 8.0, Docker container içinde
 - Şifre hash'leme için BCrypt.Net-Next
-- JWT Bearer kimlik doğrulama
 
 ### API Endpoint'leri
 
@@ -177,7 +175,6 @@ CQRS/MediatR değerlendirildi, bilinçli olarak vazgeçildi — bu projenin öl�
 | POST | `/api/Table/createaction` | Masa oluştur |
 | GET | `/api/Table/gettable` | Masaları listele |
 | PUT | `/api/Table/updatestatus` | Masa durumunu değiştir (Empty/Occupied/Reserved) |
-| PUT | `/api/Table/updateactive` | Masayı aktif/pasif yap |
 | POST | `/api/Product/createproduct` | Ürün oluştur |
 | GET | `/api/Product/getall` | Ürünleri listele |
 | PUT | `/api/Product/updateproduct` | Ürün fiyatını/aktifliğini güncelle |
@@ -202,6 +199,10 @@ dotnet run
 
 ### Proje Durumu
 
-Backend tamamlandı: tüm katmanlar (Data, Repository, Business, API) hazır ve endpoint'ler gerçek bir MySQL veritabanına karşı uçtan uca doğrulandı. JWT kimlik doğrulaması tamamen bağlandı: login'de token veriliyor ve endpoint'ler rol bazlı `[Authorize]` ile korunuyor (Admin / Waiter / Kitchen).
+Tüm katmanlar (Data, Repository, Business, API) hazır ve yukarıdaki endpoint'ler gerçek bir MySQL veritabanına karşı uçtan uca doğrulandı. Personel rolleri (Admin / Waiter / Kitchen) domain modelinde tanımlı; endpoint seviyesinde yetkilendirme henüz bağlanmadı.
 
-**Frontend notu:** Backend, bu portfolyo projesinin çekirdeği olarak elle yazıldı. Frontend ise API'yi göstermek ve kullanmak amacıyla AI desteğiyle (Claude Code) yapıldı. Bu reponun odak noktası değildir.
+**Yol haritası**
+- JWT kimlik doğrulama: login'de token üretmek ve endpoint'leri rol bazlı `[Authorize]` ile korumak
+- Masaları API üzerinden aktif/pasif yapmak
+
+**Frontend notu:** Backend, bu portfolyo projesinin çekirdeği olarak elle yazıldı. API'yi göstermek için bir frontend AI desteğiyle (Claude Code) yapıldı; bu reponun parçası değildir.
